@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <RelativeLayout
+ 	  xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@layout/background_gradient" >
+
+      <LinearLayout
+          android:id="@+id/header"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          android:paddingBottom="5dip"  
+          android:paddingTop="5dip" >
+
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:adjustViewBounds="true"
+              android:scaleType="fitCenter"
+              android:layout_gravity="center"
+              android:src="@drawable/blue_stopwatch" />
+              
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:adjustViewBounds="true"
+              android:scaleType="fitCenter"
+              android:layout_gravity="center"
+              android:src="@drawable/pocketsplits" />
+      </LinearLayout>
+  </RelativeLayout>
