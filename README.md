@@ -1,4 +1,4 @@
 PocketSplits
 ============
 
-Time and record your athletes on your mobile device.
+Time and record your athletes' splits on your mobile device.
