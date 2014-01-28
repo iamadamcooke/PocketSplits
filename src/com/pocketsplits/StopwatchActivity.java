@@ -13,11 +13,9 @@ public class StopwatchActivity extends Activity {
 	private TextView textTimer;
 	private Button startButton;
 	private Button pauseButton;
-	private long startTime = 0L;
-	private Handler myHandler = new Handler();
-	long timeInMillies = 0L;
-	long timeSwap = 0L;
-	long finalTime = 0L;
+	private Handler swHandler = new Handler();
+
+	Stopwatch sw;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,43 +23,25 @@ public class StopwatchActivity extends Activity {
 		setContentView(R.layout.activity_stopwatch);
 
 		textTimer = (TextView) findViewById(R.id.textTimer);
+		sw = new Stopwatch(swHandler, textTimer);
 
 		startButton = (Button) findViewById(R.id.btnStart);
 		startButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				startTime = SystemClock.uptimeMillis();
-				myHandler.postDelayed(updateTimerMethod, 0);
-
+				swHandler.postDelayed(sw, 0);
 			}
 		});
 
 		pauseButton = (Button) findViewById(R.id.btnPause);
 		pauseButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				timeSwap += timeInMillies;
-				myHandler.removeCallbacks(updateTimerMethod);
-
+				long newTimeSwap = sw.getTimeSwap() + sw.getTimeInMillis();
+				sw.setTimeSwap(newTimeSwap);
+				sw.toggleStartTimeSet();
+				swHandler.removeCallbacks(sw);
 			}
 		});
 
 	}
-
-	private Runnable updateTimerMethod = new Runnable() {
-
-		public void run() {
-			timeInMillies = SystemClock.uptimeMillis() - startTime;
-			finalTime = timeSwap + timeInMillies;
-
-			int seconds = (int) (finalTime / 1000);
-			int minutes = seconds / 60;
-			seconds = seconds % 60;
-			int milliseconds = (int) (finalTime % 1000);
-			textTimer.setText("" + String.format("%02d", minutes) + ":"
-					+ String.format("%02d", seconds) + ":"
-					+ String.format("%03d", milliseconds));
-			myHandler.postDelayed(this, 0);
-		}
-
-	};
 
 }
