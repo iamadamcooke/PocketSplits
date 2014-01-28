@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 public class StopwatchActivity extends Activity {
 	/** Called when the activity is first created. */
-	private TextView textTimer;
+	private TextView totalTimeText;
+	private TextView splitTimeText;
 	private Button startButton;
-	private Button pauseButton;
+	private Button stopResetButton;
+	private Button splitButton;
 	private Handler swHandler = new Handler();
+	private long lastSplit = 0L;
+	private long lastTime = 0L;
 
 	Stopwatch sw;
 
@@ -22,18 +26,21 @@ public class StopwatchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stopwatch);
 
-		textTimer = (TextView) findViewById(R.id.textTimer);
-		sw = new Stopwatch(swHandler, textTimer);
+		totalTimeText = (TextView) findViewById(R.id.totalTimeText);
+		splitTimeText = (TextView) findViewById(R.id.splitTimeText);
+		sw = new Stopwatch(swHandler, totalTimeText);
 
 		startButton = (Button) findViewById(R.id.btnStart);
 		startButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				swHandler.postDelayed(sw, 0);
 			}
 		});
 
-		pauseButton = (Button) findViewById(R.id.btnPause);
-		pauseButton.setOnClickListener(new View.OnClickListener() {
+		stopResetButton = (Button) findViewById(R.id.btnStopReset);
+		stopResetButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				long newTimeSwap = sw.getTimeSwap() + sw.getTimeInMillis();
 				sw.setTimeSwap(newTimeSwap);
@@ -41,6 +48,18 @@ public class StopwatchActivity extends Activity {
 				swHandler.removeCallbacks(sw);
 			}
 		});
+		
+		splitButton = (Button) findViewById(R.id.btnSplit);
+		splitButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				lastSplit = sw.getTotalTime() - lastTime;
+				lastTime = sw.getTotalTime();
+				splitTimeText.setText(TimeHelpers.millisToStringTime(lastSplit));
+				
+			}
+		});
+		
 
 	}
 

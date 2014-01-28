@@ -9,15 +9,15 @@ public class Stopwatch implements Runnable{
 	private long startTime;
 	private long timeInMillis = 0L;
 	private long timeSwap = 0L;
-	private long finalTime = 0L;
+	private long totalTime = 0L;
 	private boolean startTimeSet = false;
 	private String currentTime = "00:00:00";
-	private TextView textTimer;
+	private TextView totalTimeText;
 	private Handler handler;
 	
-	public Stopwatch(Handler handler, TextView textTimer) {
+	public Stopwatch(Handler handler, TextView totalTimeText) {
 		this.handler = handler;
-		this.textTimer = textTimer;
+		this.totalTimeText = totalTimeText;
 		
 		
 	}
@@ -29,15 +29,10 @@ public class Stopwatch implements Runnable{
 			startTimeSet = true;
 		}
 		timeInMillis = SystemClock.uptimeMillis() - startTime;
-		finalTime = timeSwap + timeInMillis;
+		totalTime = timeSwap + timeInMillis;
 
-		int seconds = (int) (finalTime / 1000);
-		int minutes = seconds / 60;
-		seconds = seconds % 60;
-		int milliseconds = (int) (finalTime % 1000);
-		textTimer.setText("" + String.format("%02d", minutes) + ":"
-				+ String.format("%02d", seconds) + ":"
-				+ String.format("%03d", milliseconds));
+		
+		totalTimeText.setText(TimeHelpers.millisToStringTime(totalTime));
 		handler.postDelayed(this, 0);
 		
 	}
@@ -58,8 +53,14 @@ public class Stopwatch implements Runnable{
 		return timeInMillis;
 	}
 	
+	public long getTotalTime() {
+		return totalTime;
+	}
+	
 	public void toggleStartTimeSet() {
 		startTimeSet = !startTimeSet;
 	}
+
+	
 
 }
