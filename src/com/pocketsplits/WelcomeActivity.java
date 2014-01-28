@@ -1,22 +1,32 @@
 package com.pocketsplits;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
-
+//welcome/splash screen activity
 public class WelcomeActivity extends Activity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.welcome, menu);
-		return true;
-	}
+	// Splash screen timer
+    private final int SPLASH_TIME_OUT = 5000;
+ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+ 
+        new Handler().postDelayed(new Runnable() {
+ 
+ 
+            @Override
+            public void run() {
+                Intent i = new Intent(WelcomeActivity.this, StopwatchActivity.class);
+                startActivity(i);
+                // close this activity
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
+    }
 
 }
