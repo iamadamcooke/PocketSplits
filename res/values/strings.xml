@@ -3,10 +3,12 @@
 
     <string name="app_name">PocketSplits</string>
     <string name="action_settings">Settings</string>
+    <string name="action_newMeet">New Meet</string>
     <string name="default_time">00:00:00</string>
 
     <color name="black">#000000</color>
 
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_meets">Meets</string>
 
 </resources>

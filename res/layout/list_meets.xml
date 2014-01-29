@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:padding="5dp" >
+ 
+  	<LinearLayout 
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" 
+                android:layout_marginTop="5dp"
+                android:id="@+id/calendar_layout"
+                android:orientation="vertical">
+
+                <TextView 
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/calendar_month_text" 
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/calendar_month"
+                    android:textSize="18sp" 
+                    android:gravity="center"
+                    android:singleLine="true" 
+                    android:text="Month"/>
+                
+                <TextView 
+                    android:layout_width="100dp"
+                    android:layout_height="75dp" 
+                    android:textColor="#000000"
+                    android:id="@+id/calendar_date_text" 
+                    android:background="@drawable/calendar_date"
+                    android:textSize="50sp" 
+                    android:gravity="center"
+                    android:singleLine="true" 
+                    android:text="Date"/>
+                
+	
+    
+</LinearLayout>
+ 
+    <TextView
+        android:id="@+id/meet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+id/meet_name"
+        android:layout_toRightOf="@id/calendar_layout"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" >
+    </TextView>
+    
+    <ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_action_next_item"
+    android:background="@null"
+    android:layout_marginLeft="5dp"
+    android:layout_centerInParent="true"
+    android:layout_alignParentRight="true"
+    />
+     
+    
+  
+ 
+</RelativeLayout>

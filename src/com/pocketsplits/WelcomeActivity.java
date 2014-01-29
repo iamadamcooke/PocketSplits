@@ -21,7 +21,7 @@ public class WelcomeActivity extends Activity {
  
             @Override
             public void run() {
-                Intent intent = new Intent(WelcomeActivity.this, StopwatchActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, MeetsActivity.class);
                 finish();
 				startActivity(intent);
 
