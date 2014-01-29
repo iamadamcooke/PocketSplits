@@ -9,7 +9,7 @@ import android.view.Menu;
 public class WelcomeActivity extends Activity {
 
 	// Splash screen timer
-    private final int SPLASH_TIME_OUT = 5000;
+    private final int SPLASH_TIME_OUT = 2000;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,29 @@ public class WelcomeActivity extends Activity {
  
             @Override
             public void run() {
-                Intent i = new Intent(WelcomeActivity.this, StopwatchActivity.class);
-                startActivity(i);
-                // close this activity
+                Intent intent = new Intent(WelcomeActivity.this, StopwatchActivity.class);
                 finish();
+				startActivity(intent);
+
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         }, SPLASH_TIME_OUT);
+        
+        new Handler().postDelayed(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				//Do nothing
+			} 
+		}, SPLASH_TIME_OUT);
+        
     }
+    
+    @Override
+	public void onBackPressed() {
+		finish();
+		super.onBackPressed();
+	}
 
 }

@@ -3,7 +3,7 @@
  	  xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:background="@layout/background_gradient" >
+      android:background="#000000" >
 
       <LinearLayout
           android:layout_width="fill_parent"
@@ -13,39 +13,17 @@
           android:paddingBottom="5dip"  
           android:paddingTop="5dip" >
 
-
           <ImageView
-              android:layout_width="wrap_content"
+              android:layout_width="300dp"
               android:layout_height="wrap_content"
-              android:adjustViewBounds="true"
-              android:layout_marginTop="30dip"
-              android:scaleType="fitCenter"
               android:layout_gravity="center"
-              android:layout_weight="1"
-              android:src="@drawable/blue_stopwatch" />
               
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_weight="0.44"
               android:adjustViewBounds="true"
               android:scaleType="fitCenter"
-              android:layout_gravity="center"
-              android:layout_weight="1"
-              android:layout_marginBottom="20dip"
-              android:src="@drawable/pocketsplits" />
+              android:src="@drawable/splash_logo" />
               
-          <TextView
-              android:id="@+id/description"
-              android:layout_width="fill_parent"
-              android:gravity="center"
-              android:layout_marginTop="20dip"
-              android:layout_marginBottom="80dip"
-              android:layout_marginLeft="25dip"
-              android:layout_marginRight="25dip"
-              android:layout_height="wrap_content"
-              android:text="Time and record your athletes' splits on your mobile device."
-              android:textColor="#000000"
-              android:textSize="25dip"  />
+         
               
          <TextView
               android:id="@+id/copyright"
@@ -56,7 +34,7 @@
               android:layout_marginRight="25dip"
               android:layout_height="wrap_content"
               android:text="Copyright © 2014 Adam Cooke | iamadamcooke.com"
-              android:textColor="#000000"
+              android:textColor="#FFFFFF"
               android:textSize="15dip"  />
              
       </LinearLayout>

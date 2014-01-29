@@ -8,6 +8,5 @@
     <color name="black">#000000</color>
 
     <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>
