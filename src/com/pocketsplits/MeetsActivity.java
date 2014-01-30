@@ -2,12 +2,20 @@ package com.pocketsplits;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,6 +31,9 @@ public class MeetsActivity extends ListActivity {
 	private ArrayList<String> meetNames;
 	private MeetsAdapter meetsAdapter;
 	private ListView lv;
+	private int mMonth;
+	private int mYear;
+	private int mDay;
  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -126,6 +137,59 @@ public class MeetsActivity extends ListActivity {
       
     }
 	
+	public void onDateClicked(View view) {
+		//TextView calendarMonthText = (TextView) view.findViewById(R.id.calendar_date_text);
+		//calendarMonthText.setText("hi");
+		showDatePickerDialog(view);
+		
+		
+		
+		
+		//calendarMonthText.setText(months[cal.get(Calendar.MONTH)]);
+		//calendarDateText.setText("" + cal.get(Calendar.DAY_OF_MONTH));
+      } 
 	
+	public void showDatePickerDialog(View view) {
+	    DialogFragment newFragment = new DatePickerFragment(view);
+	    newFragment.show(getFragmentManager(), "datePicker");
+	}
+	
+	@SuppressLint("ValidFragment")
+	public static class DatePickerFragment extends DialogFragment
+    implements DatePickerDialog.OnDateSetListener {
+
+		TextView calendarDateText;
+		TextView calendarMonthText;
+		
+		public DatePickerFragment(View view) {
+			calendarDateText = (TextView) view.findViewById(R.id.calendar_date_text);
+			calendarMonthText = (TextView) view.findViewById(R.id.calendar_month_text);
+		}
+		
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(DatePickerFragment.this.getActivity(), this, year, month, day);
+		}
+
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			String[] months = {"January", "February",
+					  "March", "April", "May", "June", "July",
+					  "August", "September", "October", "November",
+					  "December"};
+			
+			
+			calendarMonthText.setText(months[month]);
+			calendarDateText.setText("" + day);
+			
+		}
+	}
+	
+
 
 }

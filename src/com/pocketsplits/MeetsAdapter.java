@@ -44,4 +44,6 @@ public class MeetsAdapter extends ArrayAdapter<String> {
  
 		return rowView;
 	}
+	
+	
 }
