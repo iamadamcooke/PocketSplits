@@ -30,9 +30,15 @@
         </activity>
         <activity
             android:name="com.pocketsplits.MeetsActivity"
-            android:theme="@android:style/Theme.Holo"
-            android:label="@string/title_activity_meets" >
-            
+            android:label="@string/title_activity_meets"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo" >
+        </activity>
+        <activity
+            android:name="com.pocketsplits.EventsActivity"
+            android:label="@string/title_activity_events" 
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo" >
         </activity>
     </application>
 

@@ -4,6 +4,7 @@ package com.pocketsplits;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,6 +13,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -80,11 +83,14 @@ public class MeetsActivity extends ListActivity {
 	    }
 	}
  
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void OnMeetClicked(View view) {
  
 		//get selected items
-		String selectedValue = (String) getListAdapter().getItem(position);
+		TextView selectedMeet = (TextView) view.findViewById(R.id.meet_name);
+		Intent eventIntent = new Intent(getApplicationContext(), EventsActivity.class);
+		eventIntent.putExtra("Meet", selectedMeet.getText());
+		startActivity(eventIntent);
+	
 		
  
 	}
@@ -166,7 +172,12 @@ public class MeetsActivity extends ListActivity {
 			calendarMonthText = (TextView) view.findViewById(R.id.calendar_month_text);
 		}
 		
+		
+		
+		
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			
+			
 			// Use the current date as the default date in the picker
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);

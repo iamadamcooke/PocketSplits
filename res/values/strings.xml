@@ -10,5 +10,6 @@
 
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_meets">Meets</string>
+    <string name="title_activity_events">Events</string>
 
 </resources>

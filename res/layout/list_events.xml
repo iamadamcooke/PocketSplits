@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp" >
+ 
+  	
+
+    <TextView 
+       android:layout_width="100dp"
+       android:layout_height="100dp"
+       android:id="@+id/event_gender" 
+       android:textColor="#FFFFFF"
+       android:background="@drawable/event_gender_background"
+       android:textSize="55sp" 
+       android:gravity="center"
+       android:singleLine="true" 
+       android:text="G"/>
+                
+                
+
+ 
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Name"
+        android:layout_toRightOf="@id/event_gender"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="40dp" >
+    </TextView>
+    
+    <ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_action_next_item"
+    android:background="@null"
+    android:layout_marginLeft="5dp"
+    android:layout_centerInParent="true"
+    android:layout_alignParentRight="true"
+    />
+     
+    
+  
+ 
+</RelativeLayout>
