@@ -31,7 +31,7 @@ import android.view.View;
  
 public class MeetsActivity extends ListActivity {
  
-	private ArrayList<String> meetNames;
+	private ArrayList<Meet> meetNames;
 	private MeetsAdapter meetsAdapter;
 	private ListView lv;
 	private int mMonth;
@@ -41,25 +41,17 @@ public class MeetsActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(savedInstanceState == null || !savedInstanceState.containsKey("meetnames")) {
-			meetNames = new ArrayList<String>();
-		}
-		else {
-			meetNames = savedInstanceState.getStringArrayList("meetnames");
-		}
+		meetNames = new ArrayList<Meet>();
 		meetsAdapter = new MeetsAdapter(this, meetNames);
-		setListAdapter(meetsAdapter);
+		
 		lv = this.getListView();
+		lv.setAdapter(meetsAdapter);
 		lv.setDivider(new ColorDrawable(0xff33b5e5));
 		lv.setDividerHeight(3);
  
 	}
 	
-	@Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putStringArrayList("meetnames", meetNames);
-        super.onSaveInstanceState(outState);
-    }
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,7 +113,7 @@ public class MeetsActivity extends ListActivity {
         builder.setPositiveButton("Add",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
-                        meetNames.add(input.getText().toString());
+                        meetNames.add(new Meet(input.getText().toString(), Calendar.getInstance()));
                         meetsAdapter.notifyDataSetChanged();
                     }});
         // Setting Negative "NO" Button
@@ -146,7 +138,10 @@ public class MeetsActivity extends ListActivity {
 	public void onDateClicked(View view) {
 		//TextView calendarMonthText = (TextView) view.findViewById(R.id.calendar_date_text);
 		//calendarMonthText.setText("hi");
-		showDatePickerDialog(view);
+		final int position = lv.getPositionForView((View) view.getParent());
+		showDatePickerDialog(view, meetNames, position);
+		//meetsAdapter.notifyDataSetChanged();
+		
 		
 		
 		
@@ -155,8 +150,8 @@ public class MeetsActivity extends ListActivity {
 		//calendarDateText.setText("" + cal.get(Calendar.DAY_OF_MONTH));
       } 
 	
-	public void showDatePickerDialog(View view) {
-	    DialogFragment newFragment = new DatePickerFragment(view);
+	public void showDatePickerDialog(View view, ArrayList<Meet> meets , int position) {
+	    DialogFragment newFragment = new DatePickerFragment(view, meets, position);
 	    newFragment.show(getFragmentManager(), "datePicker");
 	}
 	
@@ -166,10 +161,15 @@ public class MeetsActivity extends ListActivity {
 
 		TextView calendarDateText;
 		TextView calendarMonthText;
+		int position;
+		ArrayList<Meet> meets;
 		
-		public DatePickerFragment(View view) {
+		
+		public DatePickerFragment(View view, ArrayList<Meet> meets, int position) {
 			calendarDateText = (TextView) view.findViewById(R.id.calendar_date_text);
 			calendarMonthText = (TextView) view.findViewById(R.id.calendar_month_text);
+			this.position = position;
+			this.meets = meets;
 		}
 		
 		
@@ -193,8 +193,11 @@ public class MeetsActivity extends ListActivity {
 					  "March", "April", "May", "June", "July",
 					  "August", "September", "October", "November",
 					  "December"};
-			
-			
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, year);
+			cal.set(Calendar.MONTH, month);
+			cal.set(Calendar.DAY_OF_MONTH, day);
+			meets.set(position, new Meet(meets.get(position).getMeetName(),cal));
 			calendarMonthText.setText(months[month]);
 			calendarDateText.setText("" + day);
 			

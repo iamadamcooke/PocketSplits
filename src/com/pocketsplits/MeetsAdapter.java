@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
  
-public class MeetsAdapter extends ArrayAdapter<String> {
+public class MeetsAdapter extends ArrayAdapter<Meet> {
 	private final Context context;
-	private ArrayList<String> meetNames;
+	private ArrayList<Meet> meetNames;
  
-	public MeetsAdapter(Context context, ArrayList<String> meetNames) {
+	public MeetsAdapter(Context context, ArrayList<Meet> meetNames) {
 		super(context, R.layout.list_meets, meetNames);
 		this.context = context;
 		this.meetNames= meetNames;
@@ -31,19 +31,19 @@ public class MeetsAdapter extends ArrayAdapter<String> {
 		TextView meetNameText = (TextView) rowView.findViewById(R.id.meet_name);
 		TextView calendarMonthText = (TextView) rowView.findViewById(R.id.calendar_month_text);
 		TextView calendarDateText = (TextView) rowView.findViewById(R.id.calendar_date_text);
-		meetNameText.setText(meetNames.get(position));
+		meetNameText.setText(meetNames.get(position).getMeetName());
  
-		//set date on calendar to current day
-		Calendar cal = Calendar.getInstance();
 		String[] months = {"January", "February",
 				  "March", "April", "May", "June", "July",
 				  "August", "September", "October", "November",
 				  "December"};
-		calendarMonthText.setText(months[cal.get(Calendar.MONTH)]);
-		calendarDateText.setText("" + cal.get(Calendar.DAY_OF_MONTH));
+		calendarMonthText.setText(months[meetNames.get(position).getMeetDate().get(Calendar.MONTH)]);
+		calendarDateText.setText("" + meetNames.get(position).getMeetDate().get(Calendar.DAY_OF_MONTH));
  
 		return rowView;
 	}
+	
+	
 	
 	
 }
