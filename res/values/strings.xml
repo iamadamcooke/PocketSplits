@@ -6,6 +6,7 @@
     <string name="action_newMeet">New Meet</string>
     <string name="default_time">00:00:00</string>
     <string name="action_discardMeet">Discard Meet(s)</string>
+    <string name="action_discardEvent">Discard Event(s)</string>
 
     <color name="black">#000000</color>
 

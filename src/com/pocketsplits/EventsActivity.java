@@ -1,6 +1,8 @@
 package com.pocketsplits;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,6 +31,7 @@ public class EventsActivity extends Activity {
 	
 	private ArrayList<Event> events;
 	private EventsAdapter eventsAdapter;
+	private Meet meet;
 	private ListView lv;
 
 	@Override
@@ -65,8 +69,10 @@ public class EventsActivity extends Activity {
 	        case R.id.action_newEvent:
 	            openNewEventDialog();
 	            return true;
-	        case R.id.action_settings:
-	            //openSettings();
+	        case R.id.action_discardEvent:
+	        	if(!events.isEmpty()) {
+	        		openDiscardEventDialog();
+	        	}
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -156,6 +162,64 @@ public class EventsActivity extends Activity {
         dialog.show();
       
     }
+	
+	public void openDiscardEventDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this, AlertDialog.THEME_HOLO_DARK);
+
+        // Setting Dialog Title
+        builder.setTitle("Discard Events(s)");
+
+        // Setting Dialog Message
+        builder.setMessage("Check the events(s) you would like to discard:");
+        
+        LinearLayout layout = new LinearLayout(this);
+        
+        layout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                              LinearLayout.LayoutParams.WRAP_CONTENT,
+                              LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(30, 0, 0, 15);
+        Object[] currentEvents = events.toArray();
+        final Map<CheckBox, Event> boxesMap = new HashMap<CheckBox, Event>();
+        for(Object event : currentEvents) {
+        	CheckBox cb = new CheckBox(getApplicationContext());
+        	cb.setTextSize(25);
+        	cb.setText(((Event)event).toString());
+        	boxesMap.put(cb, (Event)event);
+        	layout.addView(cb, lp);
+        }
+        builder.setView(layout);
+
+
+
+        // Setting Positive "Yes" Button
+        builder.setPositiveButton("Remove",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        for(Map.Entry<CheckBox, Event> e : boxesMap.entrySet()) {
+                        	if(e.getKey().isChecked()) {
+                        		events.remove(e.getValue());
+                        	}
+                        }
+                        eventsAdapter.notifyDataSetChanged();
+                    }});
+        // Setting Negative "NO" Button
+        builder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+                        dialog.cancel();
+                    }
+                });
+
+        // closed
+
+        // Showing Alert Message
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
+        dialog.show();
+	}
 	
 
 }

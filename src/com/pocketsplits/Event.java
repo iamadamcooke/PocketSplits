@@ -26,6 +26,19 @@ public class Event {
 		this.eventGender = eventGender;
 	}
 	
+	@Override
+	public String toString() {
+		String gender;
+		if(eventGender == 'W') {
+			gender = "Women's";
+		}
+		else {
+			gender = "Men's";
+		}
+		
+		return gender + " " + eventName;
+	}
+	
 	
 	
 	

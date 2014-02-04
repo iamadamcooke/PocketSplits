@@ -74,7 +74,6 @@ public class MeetsActivity extends ListActivity {
 	        	if(!meetNames.isEmpty()) {
 	        		openDiscardMeetDialog();
 	        	}
-	            
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
