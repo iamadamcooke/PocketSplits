@@ -3,6 +3,8 @@ package com.pocketsplits;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 import android.annotation.SuppressLint;
@@ -18,6 +20,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -67,8 +70,11 @@ public class MeetsActivity extends ListActivity {
 	        case R.id.action_newMeet:
 	            openNewMeetDialog();
 	            return true;
-	        case R.id.action_settings:
-	            //openSettings();
+	        case R.id.action_discardMeet:
+	        	if(!meetNames.isEmpty()) {
+	        		openDiscardMeetDialog();
+	        	}
+	            
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -134,6 +140,64 @@ public class MeetsActivity extends ListActivity {
         dialog.show();
       
     }
+	
+	public void openDiscardMeetDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(MeetsActivity.this, AlertDialog.THEME_HOLO_DARK);
+
+        // Setting Dialog Title
+        builder.setTitle("Discard Meet(s)");
+
+        // Setting Dialog Message
+        builder.setMessage("Check the meet(s) you would like to discard:");
+        
+        LinearLayout layout = new LinearLayout(this);
+        
+        layout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                              LinearLayout.LayoutParams.WRAP_CONTENT,
+                              LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(30, 0, 0, 15);
+        Object[] currentMeets = meetNames.toArray();
+        final Map<CheckBox, Meet> boxesMap = new HashMap<CheckBox, Meet>();
+        for(Object meet : currentMeets) {
+        	CheckBox cb = new CheckBox(getApplicationContext());
+        	cb.setTextSize(25);
+        	cb.setText(((Meet)meet).toString());
+        	boxesMap.put(cb, (Meet)meet);
+        	layout.addView(cb, lp);
+        }
+        builder.setView(layout);
+
+
+
+        // Setting Positive "Yes" Button
+        builder.setPositiveButton("Remove",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        for(Map.Entry<CheckBox, Meet> e : boxesMap.entrySet()) {
+                        	if(e.getKey().isChecked()) {
+                        		meetNames.remove(e.getValue());
+                        	}
+                        }
+                        meetsAdapter.notifyDataSetChanged();
+                    }});
+        // Setting Negative "NO" Button
+        builder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+                        dialog.cancel();
+                    }
+                });
+
+        // closed
+
+        // Showing Alert Message
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
+        dialog.show();
+	}
 	
 	public void onDateClicked(View view) {
 		//TextView calendarMonthText = (TextView) view.findViewById(R.id.calendar_date_text);

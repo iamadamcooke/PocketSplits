@@ -112,7 +112,7 @@ public class EventsActivity extends Activity {
         rg.check(rb[0].getId());
         
         final Spinner eventSpinner = new Spinner(this);
-        String[] eventsArray = {"400m", "800m", "1000m", "1500m", "1600m","Mile", "3000m", "3200m", "2Mile", 
+        String[] eventsArray = {"400m", "800m", "1000m", "1500m", "1600m","Mile", "3000m", "3200m", "Two Mile", 
         		"5000m", "10000m", "4x400m", "4x800m", "DMR"};
         ArrayAdapter<String> eventSpinnerAdapter = new ArrayAdapter<String>(this,R.layout.events_spinner, eventsArray);
         eventSpinner.setAdapter(eventSpinnerAdapter);
