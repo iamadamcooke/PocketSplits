@@ -17,7 +17,7 @@ public class EventsAdapter extends ArrayAdapter<Event> {
 	private ArrayList<Event> events;
  
 	public EventsAdapter(Context context, ArrayList<Event> events) {
-		super(context, R.layout.list_meets, events);
+		super(context, R.layout.list_events, events);
 		this.context = context;
 		this.events = events;
 	}

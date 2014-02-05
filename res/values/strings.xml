@@ -4,15 +4,18 @@
     <string name="app_name">PocketSplits</string>
     <string name="action_settings">Settings</string>
     <string name="action_newMeet">New Meet</string>
+    <string name="action_newEvent">New Event</string>
+    <string name="action_newAthlete">New Athlete</string>
     <string name="default_time">00:00:00</string>
     <string name="action_discardMeet">Discard Meet(s)</string>
     <string name="action_discardEvent">Discard Event(s)</string>
+	<string name="action_discardAthlete">Discard Athlete(s)</string>
 
     <color name="black">#000000</color>
 
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_meets">Meets</string>
     <string name="title_activity_events">Events</string>
-    
+    <string name="title_activity_athletes">Athletes</string>
 
 </resources>

@@ -31,7 +31,6 @@ public class EventsActivity extends Activity {
 	
 	private ArrayList<Event> events;
 	private EventsAdapter eventsAdapter;
-	private Meet meet;
 	private ListView lv;
 
 	@Override
@@ -84,6 +83,20 @@ public class EventsActivity extends Activity {
 	    super.onBackPressed();
 	    overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 	}
+	
+	public void OnEventClicked(View view) {
+		 
+		//get selected items
+		final int position = lv.getPositionForView(view);
+		Intent athletesIntent = new Intent(getApplicationContext(), AthletesActivity.class);
+		athletesIntent.putExtra("Event", events.get(position).toString());
+		startActivity(athletesIntent);
+	
+		
+ 
+	}
+	
+	
 	
 	private void openNewEventDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this, AlertDialog.THEME_HOLO_DARK);

@@ -1,15 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/action_newEvent"
+    <item android:id="@+id/action_newAthlete"
           android:icon="@drawable/ic_action_new"
-          android:title="@string/action_newEvent"
+          android:title="@string/action_newAthlete"
           android:showAsAction="always" />
     
     
    <item
-        android:id="@+id/action_discardEvent"
+        android:id="@+id/action_discardAthlete"
         android:showAsAction="always"
         android:icon="@drawable/ic_action_discard"
-        android:title="@string/action_discardEvent"/>
+        android:title="@string/action_discardAthlete"/>
 
 </menu>

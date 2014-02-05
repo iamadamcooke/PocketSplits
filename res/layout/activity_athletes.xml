@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AthletesActivity" >
+
+    <TextView
+        android:id="@+id/event_name_athletes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Event Name"
+        android:textSize="25dip"
+        android:textColor="#FFFFFF" />
+        
+     <ListView
+     	android:id="@+id/athleteList"
+     	android:layout_below="@id/event_name_athletes"
+     	android:layout_width="match_parent"
+     	android:layout_height="match_parent"
+     	android:layout_weight="1" />
+        
+     <LinearLayout 
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" 
+                android:layout_alignParentBottom="true"
+                android:id="@+id/buttons_layout"
+                android:layout_weight="1" 
+                android:orientation="horizontal">
+                
+         		<Button
+					android:layout_width="wrap_content"
+            		android:layout_height="wrap_content" 
+            		android:id="@+id/btnStartAll" 
+            		android:layout_weight="1.0"
+            		android:text="Start All" >
+         		</Button>
+         		<Button
+         		   android:layout_width="wrap_content"
+            		android:layout_height="wrap_content" 
+            		android:id="@+id/btnSplitAll" 
+            		android:layout_weight="1.0"
+            		android:text="Split All" >
+         		</Button>
+         		<Button
+         		    android:layout_width="wrap_content"
+            		android:layout_height="wrap_content" 
+            		android:id="@+id/btnStopResetAll" 
+            		android:layout_weight="1.0"
+            		android:text="Stop All" >
+         		</Button>
+                
+     </LinearLayout>   
+     
+     
+     
+     
+
+</RelativeLayout>
