@@ -1,6 +1,7 @@
 package com.pocketsplits;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class MeetsActivity extends ListActivity {
 	private ArrayList<Meet> meetNames;
 	private MeetsAdapter meetsAdapter;
 	private ListView lv;
+	private DBManager dbManager;
 	private int mMonth;
 	private int mYear;
 	private int mDay;
@@ -44,7 +46,17 @@ public class MeetsActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		meetNames = new ArrayList<Meet>();
+		dbManager = new DBManager(this);
+		try {
+			meetNames = dbManager.getMeets();
+		} catch (ParseException e) {
+			meetNames = new ArrayList<Meet>();
+		}
+		if(meetNames == null) {
+			meetNames = new ArrayList<Meet>();
+		}
+		
+		
 		meetsAdapter = new MeetsAdapter(this, meetNames);
 		
 		lv = this.getListView();
@@ -118,7 +130,9 @@ public class MeetsActivity extends ListActivity {
         builder.setPositiveButton("Add",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
-                        meetNames.add(new Meet(input.getText().toString(), Calendar.getInstance()));
+                    	Meet newMeet = new Meet(input.getText().toString(), Calendar.getInstance());
+                        dbManager.createMeet(newMeet);
+                    	meetNames.add(newMeet);
                         meetsAdapter.notifyDataSetChanged();
                     }});
         // Setting Negative "NO" Button
@@ -176,6 +190,7 @@ public class MeetsActivity extends ListActivity {
                         for(Map.Entry<CheckBox, Meet> e : boxesMap.entrySet()) {
                         	if(e.getKey().isChecked()) {
                         		meetNames.remove(e.getValue());
+                        		dbManager.deleteMeet(e.getValue());
                         	}
                         }
                         meetsAdapter.notifyDataSetChanged();
@@ -214,7 +229,7 @@ public class MeetsActivity extends ListActivity {
       } 
 	
 	public void showDatePickerDialog(View view, ArrayList<Meet> meets , int position) {
-	    DialogFragment newFragment = new DatePickerFragment(view, meets, position);
+	    DialogFragment newFragment = new DatePickerFragment(view, meets, position, dbManager);
 	    newFragment.show(getFragmentManager(), "datePicker");
 	}
 	
@@ -226,13 +241,15 @@ public class MeetsActivity extends ListActivity {
 		TextView calendarMonthText;
 		int position;
 		ArrayList<Meet> meets;
+		DBManager dbManager;
 		
 		
-		public DatePickerFragment(View view, ArrayList<Meet> meets, int position) {
+		public DatePickerFragment(View view, ArrayList<Meet> meets, int position, DBManager dbManager) {
 			calendarDateText = (TextView) view.findViewById(R.id.calendar_date_text);
 			calendarMonthText = (TextView) view.findViewById(R.id.calendar_month_text);
 			this.position = position;
 			this.meets = meets;
+			this.dbManager = dbManager;
 		}
 		
 		
@@ -260,7 +277,9 @@ public class MeetsActivity extends ListActivity {
 			cal.set(Calendar.YEAR, year);
 			cal.set(Calendar.MONTH, month);
 			cal.set(Calendar.DAY_OF_MONTH, day);
-			meets.set(position, new Meet(meets.get(position).getMeetName(),cal));
+			String meetName = meets.get(position).getMeetName();
+			meets.set(position, new Meet(meetName,cal));
+			dbManager.updateMeetDate(meetName, cal);
 			calendarMonthText.setText(months[month]);
 			calendarDateText.setText("" + day);
 			

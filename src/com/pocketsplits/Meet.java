@@ -1,6 +1,7 @@
 package com.pocketsplits;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -27,6 +28,11 @@ public class Meet {
 	}
 	public void setMeetDate(Calendar meetDate) {
 		this.meetDate = meetDate;
+	}
+	
+	public String getCalAsString() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		return dateFormat.format(meetDate.getTime());
 	}
 	
 	@Override 
